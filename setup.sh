@@ -17,7 +17,7 @@ mkdir -p $sparkSoFilePath
 
 # Clone osv process builder lib
 git clone ssh://git@gitlab.xlab.si:13022/mikelangelo/osv-process-builder-lib.git $osvProcessBuilderFolder
-(cd $osvProcessBuilderFolder; git checkout feature/import_osv_process_builder_from_stormy_java_app; cd src/main/java/org/mikelangelo/osvprocessbuilder; make; mvn install:install-file -Dfile=osv-process-builder.jar -DgroupId=org.mikelangelo.osv -DartifactId=osvProcessBuilder -Dversion=0.1 -Dpackaging=jar; cp stormy-java/libOsvProcessBuilder.so $dest/${sparkSoFilePath}/)
+(cd $osvProcessBuilderFolder; git checkout feature/java_so; cd src/main/java/org/mikelangelo/osvprocessbuilder; make; mvn install:install-file -Dfile=osv-process-builder.jar -DgroupId=org.mikelangelo.osv -DartifactId=osvProcessBuilder -Dversion=0.1 -Dpackaging=jar; cp stormy-java/libOsvProcessBuilder.so $dest/${sparkSoFilePath}/)
 
 # Add JAR to local maven repo, for now version 0.1
 # In future, get current maven version, increment, save to var, increment in spark project
