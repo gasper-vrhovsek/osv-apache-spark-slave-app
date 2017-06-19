@@ -1,0 +1,8 @@
+apache-spark-slave/ROOTFS/
+apache-spark-slave/libOsvProcessBuilder.so
+apache-spark-slave/spark-2.1.1-bin-2.7.3.tgz
+apache-spark-slave/usr.manifest
+capstan_package/
+osv_process_builder_lib/
+spark_gv_fork/
+
