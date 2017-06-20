@@ -19,11 +19,11 @@ ROOTFS/$(NAME): $(TARBALL)
 	touch ROOTFS/$(NAME)
 	find ./assets/conf -type f -exec cp {} ROOTFS/$(NAME)/conf/. \;
 	mkdir -p ROOTFS/$(NAME)/./launcher/target/scala-2.11
-	mkdir -p ROOTFS/$(NAME)/./launcher/target/scala-2.10
+#	mkdir -p ROOTFS/$(NAME)/./launcher/target/scala-2.10
 	touch ROOTFS/$(NAME)/./launcher/target/scala-2.11/.temp.txt
-	touch ROOTFS/$(NAME)/./launcher/target/scala-2.10/.temp.txt
+#	touch ROOTFS/$(NAME)/./launcher/target/scala-2.10/.temp.txt
 	echo "temp" > ROOTFS/$(NAME)/./launcher/target/scala-2.11/.temp.txt
-	echo "temp" > ROOTFS/$(NAME)/./launcher/target/scala-2.10/.temp.txt
+#	echo "temp" > ROOTFS/$(NAME)/./launcher/target/scala-2.10/.temp.txt
 	mkdir -p ROOTFS/usr/lib
 	cp libOsvProcessBuilder.so ROOTFS/usr/lib/libOsvProcessBuilder.so
 
