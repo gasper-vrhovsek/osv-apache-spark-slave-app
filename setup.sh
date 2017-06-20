@@ -16,14 +16,18 @@ echo "Setting up in directory ${dest}"
 mkdir -p $sparkSoFilePath
 
 # Clone osv process builder lib
-git clone ssh://git@gitlab.xlab.si:13022/mikelangelo/osv-process-builder-lib.git $osvProcessBuilderFolder
-(cd $osvProcessBuilderFolder; git checkout feature/java_so; cd src/main/java/org/mikelangelo/osvprocessbuilder; make; mvn install:install-file -Dfile=osv-process-builder.jar -DgroupId=org.mikelangelo.osv -DartifactId=osvProcessBuilder -Dversion=0.1 -Dpackaging=jar; cp stormy-java/libOsvProcessBuilder.so $dest/${sparkSoFilePath}/)
+if [ ! -d "$osvProcessBuilderFolder" ]; then
+	git clone ssh://git@gitlab.xlab.si:13022/mikelangelo/osv-process-builder-lib.git $osvProcessBuilderFolder
+fi
+(cd $osvProcessBuilderFolder; git checkout feature/java_so; git pull; cd src/main/java/org/mikelangelo/osvprocessbuilder; make; mvn install:install-file -Dfile=osv-process-builder.jar -DgroupId=org.mikelangelo.osv -DartifactId=osvProcessBuilder -Dversion=0.1 -Dpackaging=jar; cp stormy-java/libOsvProcessBuilder.so $dest/${sparkSoFilePath}/)
 
 # Add JAR to local maven repo, for now version 0.1
 # In future, get current maven version, increment, save to var, increment in spark project
 
-git clone git@github.com:gasper-vrhovsek/spark.git $sparkForkFolder
-(cd $sparkForkFolder; git checkout feature/v.2.1.1_osvProcessBuilder; ./dev/make-distribution.sh --tgz -Phadoop-2.7; cp spark-2.1.1-bin-2.7.3.tgz ${dest}/${sparkOsvAppFolder})
+if [ ! -d "$sparkForkFolder" ]; then
+	git clone git@github.com:gasper-vrhovsek/spark.git $sparkForkFolder
+fi
+(cd $sparkForkFolder; git checkout feature/v.2.1.1_osvProcessBuilder; git pull; ./dev/make-distribution.sh --tgz -Phadoop-2.7; cp spark-2.1.1-bin-2.7.3.tgz ${dest}/${sparkOsvAppFolder})
 
 (cp ${dest}/${sparkSoFilePath}/libOsvProcessBuilder.so ${sparkOsvAppFolder})
 (cd ${sparkOsvAppFolder}; make)
