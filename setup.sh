@@ -3,6 +3,8 @@
 # TODO check for dependencies, capstan, etc. Download capstan osv-loader, init package, package compose 
 
 osvProcessBuilderFolder="osv_process_builder_lib"
+osvProcessBuilderBranch="feature/pyspark_testing"
+
 sparkForkFolder="spark_gv_fork"
 
 sparkCapstanFolder="capstan_package"
@@ -19,7 +21,7 @@ mkdir -p $sparkSoFilePath
 if [ ! -d "$osvProcessBuilderFolder" ]; then
 	git clone ssh://git@gitlab.xlab.si:13022/mikelangelo/osv-process-builder-lib.git $osvProcessBuilderFolder
 fi
-(cd $osvProcessBuilderFolder; git checkout feature/java_so; git pull; cd src/main/java/org/mikelangelo/osvprocessbuilder; make; mvn install:install-file -Dfile=osv-process-builder.jar -DgroupId=org.mikelangelo.osv -DartifactId=osvProcessBuilder -Dversion=0.1 -Dpackaging=jar; cp stormy-java/libOsvProcessBuilder.so $dest/${sparkSoFilePath}/)
+(cd $osvProcessBuilderFolder; git checkout $osvProcessBuilderBranch; git pull; cd src/main/java/org/mikelangelo/osvprocessbuilder; make; mvn install:install-file -Dfile=osv-process-builder.jar -DgroupId=org.mikelangelo.osv -DartifactId=osvProcessBuilder -Dversion=0.1 -Dpackaging=jar; cp stormy-java/libOsvProcessBuilder.so $dest/${sparkSoFilePath}/)
 
 # Add JAR to local maven repo, for now version 0.1
 # In future, get current maven version, increment, save to var, increment in spark project
